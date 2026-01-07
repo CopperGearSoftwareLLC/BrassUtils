@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
 project(BrassUtils LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # --- Fetch GLM ---
 include(cmake/GLM.cmake)  # This file should use FetchContent to get GLM
+include(cmake/Boost.cmake)  # This file should use FetchContent to get GLM
 
 # --- Collect all .cpp files recursively ---
 file(GLOB_RECURSE BRASS_UTILS_SOURCES
@@ -13,16 +14,23 @@ file(GLOB_RECURSE BRASS_UTILS_SOURCES
 )
 
 # --- Create the library ---
-add_library(BrassUtilsCpp STATIC ${BRASS_UTILS_SOURCES})
+add_library(BrassUtils STATIC ${BRASS_UTILS_SOURCES})
 
 # --- Include directories ---
-target_include_directories(BrassUtilsCpp
+target_include_directories(BrassUtils
     PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/cpp/include>
-        $<INSTALL_INTERFACE:include>
+        ${boost_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/cpp/src
+
 )
+message(STATUS ${boost_SOURCE_DIR})
 
 # --- Link GLM (header-only) ---
-target_link_libraries(BrassUtilsCpp PRIVATE glm::glm)
+target_link_libraries(BrassUtils
+    PRIVATE 
+        glm::glm
+        Boost::dynamic_bitset
+        Boost::multi_array
+        Boost::static_string)
 
 

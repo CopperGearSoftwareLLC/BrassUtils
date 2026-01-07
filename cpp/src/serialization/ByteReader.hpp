@@ -34,8 +34,8 @@ public:
 
   // ---------------- Floats --------------------------------------
 
-  float f32() { return std::bit_cast<float>(u32()); }
-  double f64() { return std::bit_cast<double>(u64()); }
+  float f32() { return bit_cast<float>(u32()); }
+  double f64() { return bit_cast<double>(u64()); }
 // ---------------- Generic Scalar -----------------------------
 template<typename T>
 T read_scalar() {
@@ -101,12 +101,12 @@ T read_vector() {
     return s;
   }
   template <std::size_t N>
-	static_string<N> str()
+	boost::static_string<N> str()
 	{
 		 uint32_t len = var_u32();
     if (remaining() < len)
       throw ByteError("string overflow");
-    static_string<N> s(reinterpret_cast<const char*>(p + i), len);
+    boost::static_string<N> s(reinterpret_cast<const char*>(p + i), len);
     i += len;
     return s;
 	}

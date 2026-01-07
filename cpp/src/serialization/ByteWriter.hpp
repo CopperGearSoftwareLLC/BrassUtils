@@ -47,9 +47,9 @@ class ByteWriter
 
 	// ---------------- Floats --------------------------------------
 
-	void f32(float v) { u32(std::bit_cast<uint32_t>(v)); }
+	void f32(float v) { u32(bit_cast<uint32_t>(v)); }
 
-	void f64(double v) { u64(std::bit_cast<uint64_t>(v)); }
+	void f64(double v) { u64(bit_cast<uint64_t>(v)); }
 	template <typename T>
 	void write_scalar(T v)
 	{
@@ -136,7 +136,7 @@ class ByteWriter
 		write(s.data(), s.size());
 	}
 	template <std::size_t N>
-	void str(const static_string<N>& s)
+	void str(const boost::static_string<N>& s)
 	{
 		var_u32(uint32_t(s.size()));
 		write(s.data(), s.size());
