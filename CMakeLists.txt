@@ -19,9 +19,9 @@ add_library(BrassUtils STATIC ${BRASS_UTILS_SOURCES})
 # --- Include directories ---
 target_include_directories(BrassUtils
     PUBLIC
-        ${boost_SOURCE_DIR}
-        ${CMAKE_CURRENT_SOURCE_DIR}/cpp/src
-
+        ${CMAKE_CURRENT_LIST_DIR}/cpp/src
+        $<BUILD_INTERFACE:${boost_SOURCE_DIR}>
+        $<BUILD_INTERFACE:${glm_SOURCE_DIR}>  # optional if needed
 )
 message(STATUS ${boost_SOURCE_DIR})
 
@@ -33,4 +33,4 @@ target_link_libraries(BrassUtils
         Boost::multi_array
         Boost::static_string)
 
-
+add_library(BrassUtils::BrassUtils ALIAS BrassUtils)
