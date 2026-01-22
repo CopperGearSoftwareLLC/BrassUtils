@@ -1,6 +1,6 @@
 
 {
-  "name": "Copper Utils",
+  "name": "BrassUtils",
   "build": {
 		"dockerfile": "Dockerfile"
 	},
