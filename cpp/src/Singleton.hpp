@@ -46,7 +46,7 @@ public:
         );
 
         std::lock_guard lock(Mutex);
-        ASSERT(!Instance, "Singleton already exists");
+        assert(!Instance&&"Singleton already exists");
 
         Instance = std::make_unique<Type>(std::forward<Args>(args)...);
         return *Instance;
